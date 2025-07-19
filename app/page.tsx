@@ -18,7 +18,7 @@ const HomePage = () => {
     setView(newView);
   };
   
-  const views: Record<View, JSX.Element> = {
+  const views: Record<View, React.ReactElement> = {
     home: <Home setView={handleSetView}/>,
     settings: <Settings setView={handleSetView}/>,
     scanning: <Scanning setView={handleSetView}/>
