@@ -16,7 +16,7 @@ const SlideTransition = ( {direction, children } : SlideProps) => {
         initial={{ x: fromX, opacity: 0.3 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: toX, opacity: 0.3 }}
-        transition={{ type: "spring", duration: 0.3 }}
+        transition={{ type: "tween", duration: 0.1 }}
         className="absolute inset-0"
     >
         {children}

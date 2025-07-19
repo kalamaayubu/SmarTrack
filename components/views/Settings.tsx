@@ -1,7 +1,9 @@
 import { ArrowLeft } from 'lucide-react'
 
+type View = "home" | "scanning" | "settings";
+
 type SettingProps = {
-  setView: (view: string) => void
+  setView: (view: View) => void
 }
 
 const Settings = ({ setView } : SettingProps) => {
@@ -9,8 +11,8 @@ const Settings = ({ setView } : SettingProps) => {
     setView("home")
   }
   return (
-    <>
-      <div className='flex items-center mb-4 mt-4'>
+    <div>
+      <div className='flex items-center mb-4 mt-4 max-w-dvh bg-red-600'>
         <ArrowLeft onClick={goHome} className='hover:cursor-pointer text-gray-700 hover:text-gray-950 rounded-full'/>
         <p className='m-auto text-xl font-semibold'>Notification Settings</p>
       </div>
@@ -41,8 +43,8 @@ const Settings = ({ setView } : SettingProps) => {
           </div>          
         </div>
       </div>
-      <button className=''>Save changes</button>
-    </>
+      <button className='flex m-auto px-8 py-[10px] mt-10'>Save changes</button>
+    </div>
   )
 }
 

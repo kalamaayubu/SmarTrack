@@ -12,6 +12,51 @@
   }
 }
 
+/* Custom fast animate-pulse styles */
+@keyframes pulse-fast {
+  0%, 100% {
+    opacity: 1
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.animate-pulse-fast {
+  animation: pulse-fast 1s ease-in-out infinite;
+}
+
+/* QR code scanning styles */
+@keyframes scanAnimation {
+  0% {
+    top: 0%;
+    opacity: 0.3;
+  }
+  25% {
+    top: 25%;
+    opacity: 0.6;
+  }
+  50% {
+    top: 50%;
+    opacity: 1;
+  }
+  75% {
+    top: 75%;
+    opacity: 0.3;
+  }
+  100% {
+    top: 100%;
+    opacity: 0.1;
+  }
+}
+
+.scan-overlay {
+  @apply absolute inset-0  bg-gradient-to-b from-transparent h-1 via-green-300 to-transparent;
+  animation: scanAnimation 1s infinite linear;
+  height: 50%;
+  width: 100%;
+}
+/* End of QR code scanning styles */
+
 @theme inline {
 
   --radius-sm: calc(var(--radius) - 4px);
