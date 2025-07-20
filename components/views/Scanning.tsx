@@ -25,7 +25,7 @@ const Scanning = ({setView} : ScanningProps) => {
 
     const goHome = () => {
         setView("home")
-        router.refresh()
+        router.replace("/")
     } 
   return (
     <div className="flex flex-col gap-4 items-center">
