@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const Header = () => {
   return (
-    <div className="flex text-center items-center gap-2 justify-center">
+    <div className="flex text-center items-center gap-2 justify-center mt-16 mb-8">
       <div className="">
         <Image src={"/assets/icons/logo.svg"} alt="logo" width={200} height={200} className="w-12"/> 
       </div>

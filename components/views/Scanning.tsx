@@ -23,7 +23,10 @@ const Scanning = ({setView} : ScanningProps) => {
         return () => clearTimeout(timeout)
     }, [redirectURL, router])
 
-    const goHome = () => setView("home")
+    const goHome = () => {
+        setView("home")
+        router.refresh()
+    } 
   return (
     <div className="flex flex-col gap-4 items-center">
         <div className={`${isScanning ? "animate-pulse-fast border-gray-800" : ""} border-4 relative w-64 h-64 border-gray-400 rounded-lg overflow-hidden`}>
@@ -33,6 +36,7 @@ const Scanning = ({setView} : ScanningProps) => {
                 height={800} 
                 width={800} 
                 alt="qr-code"
+                priority
                 className="absolute"
             /> 
         </div>
