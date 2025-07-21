@@ -3,7 +3,7 @@
 import { checkUserAtSwahilipot } from "@/utils/isWithinRadius";
 import { CheckCircle2, DoorClosed } from "lucide-react";
 import { useEffect, useState } from "react";
-import Header from "../Header";
+import Image from "next/image";
 
 type View = "home" | "scanning" | "settings";
 
@@ -26,8 +26,10 @@ const Home = ({ setView } : HomeProps ) => {
   return (
     <div className="">
         <div className="relative flex rounded-full mt-20">
-            {/* <div className="absolute bg-green-400 rounded-full animate animate-ping z-0 size-10 top-11 left-1/2 -translate-x-1/2"/> */}
-            <Header/>
+            <div className={`absolute bg-green-400 rounded-full ${isInSwahilipot ? "" : 'animate-ping'} z-0 size-20 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`}/>
+            <div className="flex m-auto items-center size-32 z-10 justify-center bg-green-600 rounded-full">
+                <Image priority src={"/assets/icons/logo2.svg"} alt="logo" width={200} height={200} className="w-24"/> 
+            </div>
         </div>
         <div className='flex flex-col gap-4 mt-10 p-4'>
             {/* Location status */}

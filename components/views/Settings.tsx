@@ -7,7 +7,7 @@ import { ArrowLeft, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import Header from '../Header';
+import Image from 'next/image';
 
 type View = "home" | "scanning" | "settings";
 
@@ -76,19 +76,20 @@ const Settings = ({ setView } : SettingProps) => {
         <p className='text-xl font-semibold'>Notification Settings</p>
       </div>
 
-      <div className='flex items-center justify-between mr-2 mt-10 px-12'>
-        <div className='ml-2'>
-          <p className='text-green-600 font-bold text-2xl mb-2'>SmarTrack</p>
-          <p className='text-gray-500 text-sm'>Set your prefered timing</p>
+      <div className='flex items-center gap-6 justify-between mr-2 mt-10 px-12'>
+        <div className='ml-2 max-w-60'>
+          <p className='text-green-600 font-bold text-2xl mb-2'>Smart Track</p>
+          <p className='text-gray-500 text-sm'>Set your prefered time, I gat you.</p>
         </div>
         <div className="relative flex rounded-full">
-              <div className="absolute bg-green-400 rounded-full animate animate-ping z-0 size-10 top-11 left-1/2 -translate-x-1/2"/>
-              <Header/>
+                <div className="flex m-auto items-center size-24 z-10 justify-center bg-green-600 rounded-full">
+                  <Image priority src={"/assets/icons/logo2.svg"} alt="logo" width={200} height={200} className="w-[68px] sm"/> 
+                </div>
           </div>
       </div>
 
-      <div className='mt-16'>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-10 ml-32'>
+      <div className='flex mt-16'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-10 m-auto'>
           <div className='flex flex-col'>
             <label htmlFor="checkInTime" className="text-sm text-gray-400">Check-in Time</label>
             <input 
