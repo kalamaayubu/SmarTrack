@@ -29,8 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
       >
-        <div className="p-5 bg-white max-w-xl m-auto min-h-screen">
-          <Header/>
+        <div className="p-5 text-white max-w-xl m-auto min-h-screen sm:border-2 border-green-950 sm:border-b-0 sm:border-t-0 bg-gradient-to-b from-green-900 from-0% via-10% via-green-950 to-50% to-black">
           {children}
           <Toaster 
             richColors

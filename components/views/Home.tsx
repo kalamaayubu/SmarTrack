@@ -3,6 +3,7 @@
 import { checkUserAtSwahilipot } from "@/utils/isWithinRadius";
 import { CheckCircle2, DoorClosed } from "lucide-react";
 import { useEffect, useState } from "react";
+import Header from "../Header";
 
 type View = "home" | "scanning" | "settings";
 
@@ -23,37 +24,43 @@ const Home = ({ setView } : HomeProps ) => {
   const goToScanQR = () => setView("scanning")
 
   return (
-    <div className='flex flex-col gap-4 mt-10 p-4'>
-        {/* Location status */}
-        <div className="flex flex-col gap-2 m-auto text-center mb-10">
-            {isInSwahilipot === null ? (
-                <p className="text-gray-500">Checking location...</p>
-            ) : (
-
-                isInSwahilipot ? (
-                    <>
-                        <CheckCircle2 className="text-green-600 m-auto"/>
-                        <p className={` text-xl text-green-600`}>You&rsquo;re in Swahilipot</p>
-                    </>
-                ) : (
-                    <>
-                        <DoorClosed  className="text-red-600 m-auto"/>
-                        <p className={` text-xl text-red-600`}>You&rsquo;re not in Swahilipot</p>
-                    </>
-                )
-            )}
+    <div className="">
+        <div className="relative flex rounded-full mt-20">
+            {/* <div className="absolute bg-green-400 rounded-full animate animate-ping z-0 size-10 top-11 left-1/2 -translate-x-1/2"/> */}
+            <Header/>
         </div>
+        <div className='flex flex-col gap-4 mt-10 p-4'>
+            {/* Location status */}
+            <div className="flex flex-col gap-2 m-auto text-center mb-10">
+                {isInSwahilipot === null ? (
+                    <p className="text-gray-500">Checking location...</p>
+                ) : (
 
-        <button 
-            onClick={goToScanQR}
-            disabled={isInSwahilipot !== true} 
-            className={`${!isInSwahilipot ? 'cursor-not-allowed bg-green-600 hover:bg-green-600 active:scale-100 opacity-60' : ''} mb-8 w-[80%] m-auto`}
-        >
-            {isInSwahilipot !== true ? <p className="animate-pulse">Checking location...</p> : 'Scan Code'}
-        </button>
+                    isInSwahilipot ? (
+                        <>
+                            <CheckCircle2 className="text-green-600 m-auto"/>
+                            <p className={` text-xl text-green-600`}>You&rsquo;re in Swahilipot</p>
+                        </>
+                    ) : (
+                        <>
+                            <DoorClosed  className="text-red-600 m-auto"/>
+                            <p className={` text-xl text-red-600`}>You&rsquo;re not in Swahilipot</p>
+                        </>
+                    )
+                )}
+            </div>
 
-        {/* Notification setting status */}
-        <p onClick={goToSettigs} className="text-gray-400 mt-10 text-center hover:cursor-pointer hover:text-gray-500 active:scale-95 transition-all duration-300">{`Notifications are disabled`}</p>
+            <button 
+                onClick={goToScanQR}
+                disabled={isInSwahilipot !== true} 
+                className={`${!isInSwahilipot ? 'cursor-not-allowed bg-green-600 hover:bg-green-600 active:scale-100 opacity-60' : ''} mb-8 w-[80%] m-auto`}
+            >
+                {isInSwahilipot !== true ? <p className="animate-pulse">Checking location...</p> : 'Scan Code'}
+            </button>
+
+            {/* Notification setting status */}
+            <p onClick={goToSettigs} className="text-gray-400 mt-10 text-center hover:cursor-pointer hover:text-gray-300 active:scale-95 transition-all duration-300">{`Notifications are disabled`}</p>
+        </div>
     </div>
   )
 }

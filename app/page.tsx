@@ -4,6 +4,7 @@ import SlideTransition from "@/components/SlideTransition";
 import Home from "@/components/views/Home";
 import Scanning from "@/components/views/Scanning";
 import Settings from "@/components/views/Settings";
+import NotificationPermission from "@/utils/NotificationPermission ";
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react"
 
@@ -32,6 +33,9 @@ const HomePage = () => {
 
   return (
     <div className="relative overflow-hidden min-h-lvh p-4">
+      {/*  */}
+      <NotificationPermission/>
+      
       <AnimatePresence mode="wait" initial={false}>
         <SlideTransition key={view} direction={direction}>
           {views[view]}

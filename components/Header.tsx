@@ -2,11 +2,8 @@ import Image from "next/image"
 
 const Header = () => {
   return (
-    <div className="flex text-center items-center gap-2 justify-center mt-16 mb-8">
-      <div className="">
-        <Image src={"/assets/icons/logo.svg"} alt="logo" width={200} height={200} className="w-12"/> 
-      </div>
-        <h1 className="-translate-y-0.5">SmarTrack</h1>
+    <div className="flex m-auto items-center size-32 justify-center bg-green-600 rounded-full">
+        <Image priority src={"/assets/icons/logo2.svg"} alt="logo" width={200} height={200} className="w-24"/> 
     </div>
   )
 }
