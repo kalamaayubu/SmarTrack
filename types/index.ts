@@ -1,3 +1,5 @@
+import { ReactElement, ReactNode } from "react";
+
 export type SettingsForm = {
   checkInTime: string | null
   checkOutTime: string | null
@@ -12,4 +14,10 @@ export type NotificationProps = {
   title: string
   body: string
   recipients: NotificationRecipient[]
+}
+
+export type PreferenceCardProps = {
+  icon: ReactNode
+  title: string
+  value: string
 }
