@@ -1,5 +1,8 @@
 import { ReactElement, ReactNode } from "react";
 
+// Views, kind of pages
+export type View = "home" | "scanning" | "settings"; 
+
 export type SettingsForm = {
   checkInTime: string | null
   checkOutTime: string | null

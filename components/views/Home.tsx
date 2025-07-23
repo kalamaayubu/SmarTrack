@@ -1,12 +1,12 @@
 'use client'
 
 import { checkUserAtSwahilipot } from "@/utils/isWithinRadius";
-import { CheckCircle2, DoorClosed, LucideTimerOff, LucideTimerReset } from "lucide-react";
+import { CheckCircle2, DoorClosed, Loader2, LucideTimerOff, LucideTimerReset } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import PreferenceCard from "../PreferenceCard";
+import { View } from "@/types";
 
-type View = "home" | "scanning" | "settings";
 
 type HomeProps = {
     setView: (view: View) => void
@@ -35,7 +35,7 @@ const Home = ({ setView } : HomeProps ) => {
             {/* Location status */}
             <div className="flex flex-col gap-[2px] m-auto text-center mb-4">
                 {isInSwahilipot === null ? (
-                    <p className="text-gray-500">Checking location...</p>
+                    <p className="text-gray-300 animate-pulse text-xl">Checking your location...</p>
                 ) : (
 
                     isInSwahilipot ? (
@@ -63,7 +63,7 @@ const Home = ({ setView } : HomeProps ) => {
                     isInSwahilipot == false ? (
                         <p className="">Can not scan code</p>
                     ) : (
-                        <p>Checking location...</p>
+                        <Loader2 className="w-5 animate-spin m-auto"/>
                     )
                 )}
             </button>
