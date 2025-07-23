@@ -10,14 +10,14 @@ export default function manifest() {
         theme_color: '#000000',
         icons: [
             {
-                src: '/assets/icons/PWAlogo.svg',
+                src: '/assets/icons/PWAlogoo.svg',
                 sizes: '512x512',
                 type: 'image/svg+xml',
                 purpose: 'any',
                 form_factor: 'wide'  // ✅ Required for desktop
             },
             {
-                src: '/assets/icons/PWAlogo.svg',
+                src: '/assets/icons/PWAlogoo.svg',
                 sizes: '192x192',
                 type: 'image/svg+xml',
                 purpose: 'any',

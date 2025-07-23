@@ -15,8 +15,8 @@ export const SettingsProvider = ({ children }) => {
     return stored
       ? JSON.parse(stored)
       : {
-          checkIn: false,
-          checkOut: false,
+          checkIn: "09:00",
+          checkOut: "17:00",
           notificationsEnabled: true,
         };
   });

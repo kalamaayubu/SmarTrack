@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import PreferenceCard from "../PreferenceCard";
 import { View } from "@/types";
+import { useSettings } from "@/context/SettingsContext";
 
 
 type HomeProps = {
@@ -14,9 +15,10 @@ type HomeProps = {
 
 const Home = ({ setView } : HomeProps ) => {
     const [isInSwahilipot, setIsInSwahilipot] = useState<boolean | null>(null);
+    const { state, updateState } = useSettings()
 
+  // Check location when component mounts
   useEffect(() => {
-    // Check location when component mounts
     checkUserAtSwahilipot().then((result) => setIsInSwahilipot(result))
   }, [])
 
@@ -68,22 +70,22 @@ const Home = ({ setView } : HomeProps ) => {
                 )}
             </button>
 
-            <div className="flex items-center justify-center gap-4 m-auto w-[80%] max-w-80 mt-16 mb-6">
+            <div className="flex gap-4 m-auto w-[80%] max-w-80 mt-16 mb-6">
                 <PreferenceCard 
                     icon={LucideTimerReset}
                     title="Check in time"
-                    value={`09:00 AM`}
+                    value={state.checkIn}
                 />
 
                 <PreferenceCard 
                     icon={LogOutIcon}
                     title="Check out time"
-                    value={`05:00 PM`}
+                    value={state.checkOut}
                 />
             </div>
 
             {/* Notification setting status */}
-            <p onClick={goToSettigs} className="text-gray-500 hover:cursor-pointer w-fit m-auto hover:text-gray-300 active:scale-95 transition-all duration-300">{`Notifications are disabled`}</p>
+            <p onClick={goToSettigs} className="text-gray-500 hover:cursor-pointer w-fit m-auto hover:text-gray-300 active:scale-95 transition-all duration-300">{state.notificationsEnabled ? 'Notifications are enabled' : 'Notifications are disabled'}</p>
         </div>
     </div>
   )

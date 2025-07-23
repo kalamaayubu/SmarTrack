@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import Image from 'next/image';
 import { useSettings } from '@/context/SettingsContext';
+import { useEffect } from 'react';
 
 
 type SettingProps = {
@@ -20,13 +21,24 @@ const Settings = ({ setView } : SettingProps) => {
   const { state, updateState } = useSettings();
 
   // Initialize React Hook Form(RHF)
-  const { register, handleSubmit, formState: { errors, isSubmitting }} = useForm<SettingsForm>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting }} = useForm<SettingsForm>({
     defaultValues: {
       checkInTime: '',
       checkOutTime: '',
       notificationsEnabled: true,
     }
   });
+
+  // Sync context state -> form fields on load
+  useEffect(() => {
+    if (state) {
+      reset({
+        checkInTime: state.checkIn || '',
+        checkOutTime: state.checkOut || '',
+        notificationsEnabled: state.notificationsEnabled,
+      });
+    }
+  }, [state, reset]);
 
   // Function to handle save notification settings
   const onSubmit = async (data: SettingsForm) => {
@@ -59,7 +71,7 @@ const Settings = ({ setView } : SettingProps) => {
       // Update local state (from context)
       updateState("checkIn", data.checkInTime);
       updateState("checkOut", data.checkOutTime);
-      updateState("notificationEnabled", data.notificationsEnabled)
+      updateState("notificationsEnabled", data.notificationsEnabled)
 
       toast.success(res.message)
     } catch(error) {
@@ -81,7 +93,7 @@ const Settings = ({ setView } : SettingProps) => {
         <p className='text-xl font-semibold'>Notification Settings</p>
       </div>
 
-      <div className='flex items-center gap-6 justify-between mt-10 px-8'>
+      <div className='flex items-center gap-6 justify-between mt-16 px-8'>
         <div className='max-w-60'>
           <p className='text-green-600 font-bold text-2xl mb-2'>Smart Track</p>
           <p className='text-gray-500 text-sm'>Set your time and forget about forgetting 😂.</p>
@@ -93,7 +105,7 @@ const Settings = ({ setView } : SettingProps) => {
           </div>
       </div>
 
-      <div className='flex mt-24'>
+      <div className='flex mt-16'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-10 m-auto'>
           <div className='flex flex-col'>
             <label htmlFor="checkInTime" className="text-sm text-gray-400">Check-in time</label>
