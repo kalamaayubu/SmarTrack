@@ -20,7 +20,7 @@ const Settings = ({ setView } : SettingProps) => {
   const { state, updateState } = useSettings();
 
   // Initialize React Hook Form(RHF)
-  const { register, handleSubmit, setValue, formState: { errors, isSubmitting }, watch} = useForm<SettingsForm>({
+  const { register, handleSubmit, formState: { errors, isSubmitting }} = useForm<SettingsForm>({
     defaultValues: {
       checkInTime: '',
       checkOutTime: '',
@@ -84,7 +84,7 @@ const Settings = ({ setView } : SettingProps) => {
       <div className='flex items-center gap-6 justify-between mt-10 px-8'>
         <div className='max-w-60'>
           <p className='text-green-600 font-bold text-2xl mb-2'>Smart Track</p>
-          <p className='text-gray-500 text-sm'>Set your time and forget about remembering.</p>
+          <p className='text-gray-500 text-sm'>Set your time and forget about forgetting 😂.</p>
         </div>
         <div className="relative flex rounded-full">
                 <div className="flex m-auto items-center size-24 z-10 justify-center bg-green-600 rounded-full">

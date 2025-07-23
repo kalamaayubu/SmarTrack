@@ -1,7 +1,7 @@
 'use client'
 
 import { checkUserAtSwahilipot } from "@/utils/isWithinRadius";
-import { CheckCircle2, DoorClosed, Loader2, LucideTimerOff, LucideTimerReset } from "lucide-react";
+import { CheckCircle2, DoorClosed, Loader2, LogOutIcon, LucideTimerOff, LucideTimerReset } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import PreferenceCard from "../PreferenceCard";
@@ -33,7 +33,7 @@ const Home = ({ setView } : HomeProps ) => {
         </div>
         <div className='flex flex-col mt-10 p-4'>
             {/* Location status */}
-            <div className="flex flex-col gap-[2px] m-auto text-center mb-4">
+            <div className="flex flex-col gap-[2px] m-auto text-center mb-4" aria-live="polite">
                 {isInSwahilipot === null ? (
                     <p className="text-gray-300 animate-pulse text-xl">Checking your location...</p>
                 ) : (
@@ -68,15 +68,15 @@ const Home = ({ setView } : HomeProps ) => {
                 )}
             </button>
 
-            <div className="flex items-center justify-center gap-8 m-auto w-[80%] max-w-80 mt-16 mb-6">
+            <div className="flex items-center justify-center gap-4 m-auto w-[80%] max-w-80 mt-16 mb-6">
                 <PreferenceCard 
-                    icon={<LucideTimerReset/>}
+                    icon={LucideTimerReset}
                     title="Check in time"
                     value={`09:00 AM`}
                 />
 
                 <PreferenceCard 
-                    icon={<LucideTimerOff/>}
+                    icon={LogOutIcon}
                     title="Check out time"
                     value={`05:00 PM`}
                 />

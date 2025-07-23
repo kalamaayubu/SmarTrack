@@ -1,5 +1,3 @@
-import { ReactElement, ReactNode } from "react";
-
 // Views, kind of pages
 export type View = "home" | "scanning" | "settings"; 
 
@@ -20,7 +18,7 @@ export type NotificationProps = {
 }
 
 export type PreferenceCardProps = {
-  icon: ReactNode
+  icon: React.ComponentType<{ className?: string }>
   title: string
   value: string
 }
