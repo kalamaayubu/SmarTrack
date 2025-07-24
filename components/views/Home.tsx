@@ -70,7 +70,7 @@ const Home = ({ setView } : HomeProps ) => {
                 )}
             </button>
 
-            <div className="flex gap-4 m-auto w-[80%] max-w-80 mt-16 mb-6">
+            <div className="flex gap-4 m-auto justify-center w-[80%] max-w-80 mt-16 mb-6">
                 <PreferenceCard 
                     icon={LucideTimerReset}
                     title="Check in time"

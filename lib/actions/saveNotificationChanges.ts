@@ -1,7 +1,7 @@
 'use server'
 
+import { createClient } from "@/supabase/server";
 import { SettingsForm } from "@/types";
-import { createClient } from "../supabase/server";
 
 
 export async function saveNotificationChanges(data: SettingsForm & { fcm_token: string; old_token?: string | null }) {
