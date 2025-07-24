@@ -1,0 +1,20 @@
+# .github/workflows/push-notifier.yml
+
+name: Scheduled Push Notifications
+
+on:
+  schedule:
+    - cron: '* * * * *' # every minute
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  ping-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call notify users API securely
+        run: |
+          curl -X POST https://checkngo.netlify.app/api/notify \
+            -H "Authorization: Bearer ${{ secrets.SERVER_SECRET_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{}'
