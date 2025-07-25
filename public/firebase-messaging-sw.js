@@ -22,8 +22,8 @@ messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification?.title || "SmarTrack"
     const notificationOptions = {
         body: payload.notification?.body || "You have a new message from SmarTrack. Please check it out",
-        icon: payload.notification?.icon || "/assets/icons/logo2.svg",
-        data: { url: payload.fcmOptions?.link || "/"} // Redirect to the homepage when clicked
+        icon: "/assets/icons/PWAlogoo.svg" || payload.notification?.icon,
+        data: { url: "/"} // Redirect to the homepage when clicked
     };
 
     // Display push notification
@@ -36,7 +36,7 @@ self.addEventListener("notificationclick", (event) => {
     const targetUrl = event.notification.data?.url || "/"
 
     event.waitUntil(
-        clients.mathcAll({ type: "window", includeUncontrolled: true}) /* Get all browser tabs controlled by this service worker */
+        clients.matchAll({ type: "window", includeUncontrolled: true}) /* Get all browser tabs controlled by this service worker */
         .then((clientList) => {
             // Loop through each open tab/window
             for(const client of clientList) {
