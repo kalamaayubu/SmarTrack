@@ -22,7 +22,7 @@ messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification?.title || "SmarTrack"
     const notificationOptions = {
         body: payload.notification?.body || "You have a new message from SmarTrack. Please check it out",
-        icon: "/assets/icons/logo2.svg",
+        icon: payload.notification?.icon || "/assets/icons/logo2.svg",
         data: { url: payload.fcmOptions?.link || "/"} // Redirect to the homepage when clicked
     };
 
@@ -44,7 +44,6 @@ self.addEventListener("notificationclick", (event) => {
                     return client.focus() // If a matching tab exists, bring it to the front
                 }
             }
-
             // If no matching tab is found, open a new one
             return clients.openWindow(targetUrl);
         })

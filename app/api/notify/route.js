@@ -1,4 +1,3 @@
-// app/api/notify-users/route.js
 import { NextResponse } from 'next/server';
 import { createClient } from '@/supabase/server';
 import { sendNotification } from '../../../lib/firebase/sendNotification';
@@ -6,57 +5,78 @@ import { sendNotification } from '../../../lib/firebase/sendNotification';
 const SERVER_SECRET = process.env.SERVER_SECRET_TOKEN;
 
 export async function POST(req) {
+  // Authorization check using SERVER_SECRET
   const authHeader = req.headers.get('Authorization');
   const token = authHeader?.split('Bearer ')[1];
-
   if (token !== SERVER_SECRET) {
+    console.log('Unauthorized');
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const supabase = await createClient();
 
-  // Get current time in total minutes (since midnight)
+  // Get current time in minutes since midnight
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
-  // Fetch all users who have enabled notifications
+  // Fetch users with notifications enabled
   const { data: users, error } = await supabase
     .from('attendance_logs')
     .select('fcm_token, check_in, check_out, notifications_enabled')
     .eq('notifications_enabled', true);
 
   if (error) {
+    console.log('Error fetching users:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Filter users whose check-in or check-out time is near current time(+/-1 min)
-  const eligible = users.filter(user => {
-    const checkInMin = convertToMinutes(user.check_in);
-    const checkOutMin = convertToMinutes(user.check_out);
+  // Filter users who are due for check-in or check-out and attach a tailored message
+  const eligible = users
+    .map(user => {
+      if (!user.fcm_token) return null;
 
-    return (
-      user.fcm_token && // Ensure a user has a valid FCM token
-      (
-        Math.abs(currentMinutes - checkInMin) <= 1 ||
-        Math.abs(currentMinutes - checkOutMin) <= 1
-      )
-    );
-  });
+      const checkInMin = convertToMinutes(user.check_in);
+      const checkOutMin = convertToMinutes(user.check_out);
+
+      if (Math.abs(currentMinutes - checkInMin) <= 1) {
+        return {
+          ...user,
+          message: 'Hey, it’s time to check in at Swahilipot!',
+        };
+      }
+
+      if (Math.abs(currentMinutes - checkOutMin) <= 1) {
+        return {
+          ...user,
+          message: 'Hey, it’s time to check out at Swahilipot!',
+        };
+      }
+
+      return null;
+    })
+    .filter(Boolean); // remove nulls
 
   if (eligible.length === 0) {
+    console.log('No users to notify at this time');
     return NextResponse.json({ message: 'No users to notify at this time.' });
   }
 
-  await sendNotification({
-    title: 'SmartTrack Alert',
-    body: 'Hey there, its time check in or out!',
-    recipients: eligible.map(user => ({ endpoint: user.fcm_token }))
-  });
+  // Send notifications one by one with tailored messages
+  for (const user of eligible) {
+    await sendNotification({
+      title: 'SmartTrack Alert',
+      body: user.message,
+      recipients: [{ endpoint: user.fcm_token }],
+    });
+  }
 
-  return NextResponse.json({ message: 'Notifications sent', count: eligible.length });
+  return NextResponse.json({
+    message: 'Notifications sent successfully',
+    count: eligible.length,
+  });
 }
 
-// Converts time string to total minutes(from midnight)
+// Convert "HH:MM" string to total minutes since midnight
 function convertToMinutes(timeStr) {
   if (!timeStr || typeof timeStr !== 'string') return -1;
   const [hours, minutes] = timeStr.split(':').map(Number);

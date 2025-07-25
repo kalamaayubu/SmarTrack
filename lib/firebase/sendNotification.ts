@@ -9,7 +9,8 @@ export const sendNotification = async({ title, body, recipients }: NotificationP
             tokens: recipients.map(recipient => recipient.endpoint),
             notification: { title, body }
         });
-
+        
+        console.log('FCM Multicast Response:', response);
         console.log(`Notification sent! Success: ${response.successCount}, Failures: ${response.failureCount}`)
 
         if (response.failureCount > 0) {
