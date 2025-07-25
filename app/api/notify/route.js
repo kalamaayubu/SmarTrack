@@ -8,6 +8,10 @@ export async function POST(req) {
   // Authorization check using SERVER_SECRET
   const authHeader = req.headers.get('Authorization');
   const token = authHeader?.split('Bearer ')[1];
+
+  console.log('TOKEN:', token)
+
+
   if (token !== SERVER_SECRET) {
     console.log('Unauthorized');
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -38,14 +42,14 @@ export async function POST(req) {
       const checkInMin = convertToMinutes(user.check_in);
       const checkOutMin = convertToMinutes(user.check_out);
 
-      if (Math.abs(currentMinutes - checkInMin) <= 1) {
+      if (Math.abs(currentMinutes - checkInMin) == 0) {
         return {
           ...user,
           message: 'Hey, it’s time to check in at Swahilipot!',
         };
       }
 
-      if (Math.abs(currentMinutes - checkOutMin) <= 1) {
+      if (Math.abs(currentMinutes - checkOutMin) == 0) {
         return {
           ...user,
           message: 'Hey, it’s time to check out at Swahilipot!',

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 80 80">
+  <style>
+    .arc,
+    .arc2,
+    .arc3,
+    .pin-group {
+      animation: none;
+      transform: none;
+      opacity: 1;
+    }
+  </style>
+
+  <!-- Green rounded background -->
+  <rect width="80" height="80" rx="16" fill="#16A34A"/>
+
+  <!-- Group for pin + signal, shifted downward -->
+  <g transform="translate(0, 10)">
+    <!-- Location pin group (static) -->
+    <g class="pin-group">
+      <path d="M40 24C35 24 31 28 31 33C31 41.5 40 55 40 55C40 55 49 41.5 49 33C49 28 45 24 40 24Z"
+            fill="white" stroke="white" stroke-width="2"/>
+      <circle cx="40" cy="33" r="3" fill="#16A34A"/>
+    </g>
+
+    <!-- Signal arcs (static) -->
+    <path class="arc arc1" d="M34 19C37.5 16 42.5 16 46 19" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path class="arc arc2" d="M31 15.5C37 11.5 43 11.5 49 15.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path class="arc arc3" d="M28 12C36 7.5 44 7.5 52 12" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>

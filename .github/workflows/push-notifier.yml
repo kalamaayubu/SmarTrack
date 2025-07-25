@@ -13,8 +13,10 @@ jobs:
 
     steps:
       - name: Call notify users API securely
+        env:
+          TOKEN: ${{ secrets.SERVER_SECRET_TOKEN }}
         run: |
           curl -X POST https://checkngo.netlify.app/api/notify \
-            -H "Authorization: Bearer ${{ secrets.SERVER_SECRET_TOKEN }}" \
+            -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \
             -d '{}'

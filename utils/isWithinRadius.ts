@@ -52,7 +52,7 @@ export function checkUserAtSwahilipot(): Promise<boolean> {
                     userLong,
                     swahilipotLat,
                     swahilipotLong,
-                    500
+                    800
                 );
     
                 resolve(isInSwahilipot);

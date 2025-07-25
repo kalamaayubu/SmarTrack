@@ -1,7 +1,7 @@
 'use client'
 
 import { checkUserAtSwahilipot } from "@/utils/isWithinRadius";
-import { CheckCircle2, DoorClosed, Loader2, LogOutIcon, LucideTimerOff, LucideTimerReset } from "lucide-react";
+import { Bell, BellOff, CheckCircle2, DoorClosed, Loader2, LogOutIcon, LucideTimerOff, LucideTimerReset } from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import PreferenceCard from "../PreferenceCard";
@@ -43,12 +43,12 @@ const Home = ({ setView } : HomeProps ) => {
                     isInSwahilipot ? (
                         <>
                             <CheckCircle2 className="text-green-600 m-auto"/>
-                            <p className={` text-xl text-green-600`}>You&rsquo;re in Swahilipot</p>
+                            <p className={` text-xl text-green-600`}>You&rsquo;re within Swahilipot</p>
                         </>
                     ) : (
                         <>
                             <DoorClosed  className="text-red-600 m-auto"/>
-                            <p className={` text-xl text-red-600`}>You&rsquo;re not in Swahilipot</p>
+                            <p className={` text-xl text-red-600`}>You&rsquo;re not within Swahilipot</p>
                         </>
                     )
                 )}
@@ -85,7 +85,14 @@ const Home = ({ setView } : HomeProps ) => {
             </div>
 
             {/* Notification setting status */}
-            <p onClick={goToSettigs} className="text-gray-500 hover:cursor-pointer w-fit m-auto hover:text-gray-300 active:scale-95 transition-all duration-300">{state.notificationsEnabled ? 'Notifications are enabled' : 'Notifications are disabled'}</p>
+            <p onClick={goToSettigs} className="text-gray-500 hover:cursor-pointer w-fit m-auto hover:text-gray-300 active:scale-95 transition-all duration-300">
+                {state.notificationsEnabled ? (
+                    <p className="flex gap-2 items-center justify-center"><Bell className="w-4"/> Notifications enabled </p>
+                    ) : (
+                         <p className="flex gap-2 items-center justify-center"><BellOff className="w-4"/> Notifications disabled</p> 
+                    )
+                }
+            </p>
         </div>
     </div>
   )
