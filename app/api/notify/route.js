@@ -9,8 +9,6 @@ export async function POST(req) {
   const authHeader = req.headers.get('Authorization');
   const token = authHeader?.split('Bearer ')[1];
 
-  console.log('TOKEN:', token)
-
 
   if (token !== SERVER_SECRET) {
     console.log('Unauthorized');
@@ -21,7 +19,13 @@ export async function POST(req) {
 
   // Get current time in minutes since midnight
   const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  // Use UTC timezone on production
+  const isProd =  process.env.NODE_ENV === 'production';
+  const hours = isProd ? now.getUTCHours() : now.getHours();
+  const minutes = isProd ? now.getUTCMinutes() : now.getMinutes()
+
+  const currentMinutes = hours * 60 + minutes;
+  console.log('TIMEZONNING:', currentMinutes)
 
   // Fetch users with notifications enabled
   const { data: users, error } = await supabase
@@ -42,14 +46,14 @@ export async function POST(req) {
       const checkInMin = convertToMinutes(user.check_in);
       const checkOutMin = convertToMinutes(user.check_out);
 
-      if (Math.abs(currentMinutes - checkInMin) == 0) {
+      if (Math.abs(currentMinutes - checkInMin) <= 1) {
         return {
           ...user,
           message: 'Hey, it’s time to check in at Swahilipot!',
         };
       }
 
-      if (Math.abs(currentMinutes - checkOutMin) == 0) {
+      if (Math.abs(currentMinutes - checkOutMin) <= 1) {
         return {
           ...user,
           message: 'Hey, it’s time to check out at Swahilipot!',
