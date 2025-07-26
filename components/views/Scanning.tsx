@@ -19,7 +19,7 @@ const Scanning = ({setView} : ScanningProps) => {
 
         const timeout = setTimeout(() => {
             router.push(redirectURL)
-        }, 150000)
+        }, 2000)
 
         return () => clearTimeout(timeout)
     }, [redirectURL, router])

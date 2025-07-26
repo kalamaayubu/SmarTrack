@@ -27,7 +27,7 @@ messaging.onBackgroundMessage((payload) => {
     };
 
     // Display push notification
-    self.ServiceWorkerRegistration.showNotification(notificationTitle, notificationOptions)
+    self.registration.showNotification(notificationTitle, notificationOptions)
 });
 
 // Handle notification click events
