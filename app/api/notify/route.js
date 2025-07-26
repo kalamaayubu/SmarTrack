@@ -19,7 +19,13 @@ export async function POST(req) {
 
   // Get current time in minutes since midnight
   const now = new Date();
-  // Use UTC timezone on production
+
+  console.log(`[DEBUG] ISO (UTC) Time: ${now.toISOString()}`);
+console.log(`[DEBUG] Local Time: ${now.toString()}`);
+console.log(`[DEBUG] UTC Hours: ${now.getUTCHours()} | Local Hours: ${now.getHours()}`);
+console.log(`[DEBUG] currentMinutes (UTC vs Local): ${now.getUTCHours() * 60 + now.getUTCMinutes()} vs ${now.getHours() * 60 + now.getMinutes()}`);
+
+  /// Ensure consistent time comparison across environments by using UTC in production
   const isProd =  process.env.NODE_ENV === 'production';
   const hours = isProd ? now.getUTCHours() : now.getHours();
   const minutes = isProd ? now.getUTCMinutes() : now.getMinutes()
