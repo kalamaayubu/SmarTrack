@@ -16,7 +16,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.SERVER_SECRET_TOKEN }}
         run: |
-          curl -X POST https://checkngo.netlify.app/api/notify \
+          curl -sS -i -X POST https://checkngo.netlify.app/api/notify \
             -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \
             -d '{}'

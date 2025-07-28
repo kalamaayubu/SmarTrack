@@ -13,7 +13,7 @@ export async function POST(req) {
   console.log('TOKEN:', token)
 
 
-  if (token !== SERVER_SECRET) {
+  if (!token || token !== SERVER_SECRET) {
     console.log('Unauthorized');
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -21,19 +21,15 @@ export async function POST(req) {
   const supabase = await createClient();
 
   // Get current time in minutes since midnight
+  const isProd = process.env.NODE_ENV === 'production';
   const now = new Date();
 
-console.log(`[DEBUG] ISO (UTC) Time: ${now.toISOString()}`);
-console.log(`[DEBUG] Local Time: ${now.toString()}`);
-console.log(`[DEBUG] UTC Hours: ${now.getUTCHours()} | Local Hours: ${now.getHours()}`);
-console.log(`[DEBUG] currentMinutes (UTC vs Local): ${now.getUTCHours() * 60 + now.getUTCMinutes()} vs ${now.getHours() * 60 + now.getMinutes()}`);
+  let hours = isProd ? now.getUTCHours() + 3 : now.getHours(); // ← shift UTC to Nairobi
+  if (hours >= 24) hours -= 24; // wrap around midnight
 
-  /// Ensure consistent time comparison across environments by using UTC in production
-  const isProd =  process.env.NODE_ENV === 'production';
-  const hours = isProd ? now.getUTCHours() : now.getHours();
-  const minutes = isProd ? now.getUTCMinutes() : now.getMinutes()
-
+  const minutes = isProd ? now.getUTCMinutes() : now.getMinutes();
   const currentMinutes = hours * 60 + minutes;
+
   console.log('TIMEZONNING:', currentMinutes)
 
   // Fetch users with notifications enabled
@@ -42,7 +38,7 @@ console.log(`[DEBUG] currentMinutes (UTC vs Local): ${now.getUTCHours() * 60 + n
     .select('fcm_token, check_in, check_out, notifications_enabled')
     .eq('notifications_enabled', true);
 
-    console.log('USERS:', users)
+    // console.log('USERS:', users)
 
   if (error) {
     console.log('Error fetching users:', error);
