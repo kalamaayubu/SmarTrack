@@ -53,14 +53,14 @@ export async function POST(req) {
       const checkInMin = convertToMinutes(user.check_in);
       const checkOutMin = convertToMinutes(user.check_out);
 
-      if (Math.abs(currentMinutes - checkInMin) <= 1) {
+      if (Math.abs(currentMinutes - checkInMin) == 0) {
         return {
           ...user,
           message: 'Hey, it’s time to check in at Swahilipot!',
         };
       }
 
-      if (Math.abs(currentMinutes - checkOutMin) <= 1) {
+      if (Math.abs(currentMinutes - checkOutMin) == 0) {
         return {
           ...user,
           message: 'Hey, it’s time to check out at Swahilipot!',
