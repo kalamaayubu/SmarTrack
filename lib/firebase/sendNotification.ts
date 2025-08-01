@@ -7,7 +7,7 @@ export const sendNotification = async({ title, body, recipients }: NotificationP
     try {
         const response = await admin.messaging().sendEachForMulticast({
             tokens: recipients.map(recipient => recipient.endpoint),
-            notification: { title, body }
+            data: { title, body }
         });
         
         // console.log('FCM Multicast Response:', response);

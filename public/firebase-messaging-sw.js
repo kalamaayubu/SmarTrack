@@ -19,10 +19,10 @@ const messaging = firebase.messaging()
 // Listen to background messages from firebase servers
 messaging.onBackgroundMessage((payload) => {
     // Extract the required details from the payload
-    const notificationTitle = payload.data?.title || "SmarTrack"
+    const notificationTitle = payload.data?.title
     const notificationOptions = {
-        body: payload.data?.body || "You have a new message from SmarTrack. Please check it out",
-        icon: payload.data?.icon || "/assets/icons/PWAlogoo.svg",
+        body: payload.data?.body || "You have a new message from checkngo, please check it out.",
+        icon: "/assets/icons/PWAlogoo.svg " || payload.data?.icon,
         data: { url: "/"} // Redirect to the homepage when clicked
     };
 
